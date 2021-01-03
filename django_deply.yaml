@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: flask
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+        - name: flasktest
+          image: 703292127192.dkr.ecr.us-east-1.amazonaws.com/flaskpy:latest
+          ports:
+            - containerPort: 8000

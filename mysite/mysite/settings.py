@@ -12,6 +12,17 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
+
+# False if not in os.environ
+DEBUG = env('DEBUG')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +31,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zie1r+4!x$0k97(k+#48hzgs19w9j@5g-#5by_z-&5$w-0k&yr'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','0.0.0.0','wolle-optiplex']
 
 # Application definition
 
@@ -81,23 +92,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #    }
 #}
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgresdb',
-        'USER': 'postgresadmin',
-        'PASSWORD': 'admin123',
-        'HOST': '192.168.99.101',
-        'PORT': '31202', 
-    }                                                                           
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'postgresdb',
+#        'USER': 'postgresadmin',
+#        'PASSWORD': 'admin123',
+#        'HOST': '192.168.99.101',
+#        'PORT': '31202', 
+#    }                                                                           
+#}
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWD'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': env('DB_HOST'),
         'PORT': env('DB_PORT'), 
     }                                                                           
