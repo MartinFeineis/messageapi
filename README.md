@@ -18,3 +18,15 @@ curl example for POST
 ```
 curl --header "Content-Type: application/json"  --request POST --data '{"title":"Merry Curl","body":"longer body","author":"recco","slug":"noslug"}' http://127.0.0.1:8000/post/
 ```
+###Dockerizing
+build api container `docker build -t dj_message_api -f Dockerfile .`
+build migration container `docker build -t dj_runner -f DockerRunFile .`
+
+run api container `docker run -p 8500:8000 -it dj_message_api:latest`
+run migration container `
+
+debug running container
+```
+docker ps
+docker exec -it <container-hash> /bin/sh
+```
